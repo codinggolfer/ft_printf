@@ -1,6 +1,11 @@
 NAME = libftprintf.a
 
 FILES = ft_printf.c \
+		ft_printstr.c \
+		ft_print_number.c \
+		print_unint.c \
+		address_printer.c \
+		hex_printer.c
 
 FtoO = $(FILES:.c=.o)
 
@@ -13,12 +18,15 @@ LFL	=	libft.a
 
 all:	$(NAME)
 
-$(NAME):	$(LDR) $(FtoO)
-		ar rcs $(NAME) $(FtoO)
+$(NAME):	libft $(FtoO)
+		ar -r $(NAME) $(FtoO)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $?
 
 libft:
 	@make -C $(LDR)
-	@cpy $(LDR) $(LFL) .
+	@cp $(LDR)/$(LFL) .
 	@mv $(LFL) $(NAME)
 
 clean:
